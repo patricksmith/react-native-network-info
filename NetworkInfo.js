@@ -3,6 +3,10 @@
 var RNNetworkInfo = require('react-native').NativeModules.RNNetworkInfo;
 
 var NetworkInfo = {
+  getBSSID(bssid) {
+    RNNetworkInfo.getBSSID(bssid);
+  },
+
   getSSID(ssid) {
     RNNetworkInfo.getSSID(ssid);
   },

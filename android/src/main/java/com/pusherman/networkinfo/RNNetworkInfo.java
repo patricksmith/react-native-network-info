@@ -48,6 +48,12 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void getBSSID(final Callback callback) {
+    WifiInfo info = wifi.getConnectionInfo();
+    callback.invoke(info.getBSSID());
+  }
+
+  @ReactMethod
   public void getIPAddress(final Callback callback) {
     WifiInfo info = wifi.getConnectionInfo();
 

@@ -37,6 +37,27 @@ RCT_EXPORT_METHOD(getSSID:(RCTResponseSenderBlock)callback)
     callback(@[SSID]);
 }
 
+RCT_EXPORT_METHOD(getBSSID:(RCTResponseSenderBlock)callback)
+{
+    NSArray *interfaceNames = CFBridgingRelease(CNCopySupportedInterfaces());
+    NSLog(@"%s: Supported interfaces: %@", __func__, interfaceNames);
+
+    NSDictionary *NetworkInfo;
+    NSString *BSSID = @"error";
+
+    for (NSString *interfaceName in interfaceNames) {
+        NetworkInfo = CFBridgingRelease(CNCopyCurrentNetworkInfo((__bridge CFStringRef)interfaceName));
+
+        if (NetworkInfo.count > 0) {
+            BSSID = NetworkInfo[@"BSSID"];
+            break;
+        }
+    }
+
+    callback(@[BSSID]);
+}
+
+
 RCT_EXPORT_METHOD(getIPAddress:(RCTResponseSenderBlock)callback)
 {
     NSString *address = @"error";
